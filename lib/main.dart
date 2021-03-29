@@ -1,10 +1,18 @@
-import 'package:chat_flutter_app/registration_screen.dart';
 import 'package:flutter/material.dart';
+
+import 'package:chat_flutter_app/screens/registration_screen.dart';
+import 'package:chat_flutter_app/screens/welcome_screen.dart';
+import 'package:chat_flutter_app/screens/login_screen.dart';
 
 void main() {
   runApp(
     MaterialApp(
-      home: RegistrationScreen(),
+      initialRoute: WelcomeScreen.id,
+      routes: {
+        WelcomeScreen.id: (context) => WelcomeScreen(),
+        RegistrationScreen.id: (context) => RegistrationScreen(),
+        LoginScreen.id: (context) => LoginScreen(),
+      },
     ),
   );
 }
