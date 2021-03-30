@@ -1,10 +1,17 @@
+import 'package:chat_flutter_app/screens/login_screen.dart';
+import 'package:chat_flutter_app/screens/registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:chat_flutter_app/constants.dart';
 
-class WelcomeScreen extends StatelessWidget {
+class WelcomeScreen extends StatefulWidget {
   static const id = 'Welcome Screen';
 
+  @override
+  _WelcomeScreenState createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +30,9 @@ class WelcomeScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
               child: CupertinoButton.filled(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, RegistrationScreen.id);
+                },
                 child: Text('Register', style: myButtonTextStyle),
               ),
             ),
@@ -32,7 +41,9 @@ class WelcomeScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
               child: CupertinoButton.filled(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, LoginScreen.id);
+                },
                 child: Text('Login', style: myButtonTextStyle),
               ),
             ),
