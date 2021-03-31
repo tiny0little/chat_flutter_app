@@ -27,7 +27,3 @@ flutter:
   #   - images/a_dot_ham.jpeg
 
 
-  fonts:
-    - family: XanhMono
-      fonts:
-      - asset: fonts/XanhMono-Regular.ttf
