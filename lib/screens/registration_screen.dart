@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import 'package:chat_flutter_app/constants.dart';
 
@@ -13,6 +15,7 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   String email;
   String password;
+  final _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +57,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 textAlign: TextAlign.center,
                 decoration: kTextFieldDecoration.copyWith(hintText: 'password'),
                 onChanged: (value) {
-                  email = value;
+                  password = value;
                 },
               ),
             ),
@@ -65,7 +68,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             child: CupertinoButton.filled(
               borderRadius: BorderRadius.all(Radius.circular(kBorderRadius)),
               child: Text('Register', style: cMyTextStyle1),
-              onPressed: () {},
+              onPressed: () async {
+                final newUser = await _auth.createUserWithEmailAndPassword(
+                    email: email, password: password);
+                if (newUser != null) {
+                  Navigator.pop(context);
+                }
+              },
             ),
           ),
           SizedBox(height: kPadding1 * 2),
