@@ -17,7 +17,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chat'),
+        title: Text('Chat', style: cMyTextStyle1),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -27,7 +27,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             flex: 2,
             child: Hero(
               tag: 'logo',
-              child: Icon(Icons.bolt, size: 400, color: cLogoColor),
+              child: Icon(Icons.bolt, size: 300, color: cLogoColor),
             ),
           ),
           Padding(
@@ -38,7 +38,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               onPressed: () {
                 Navigator.pushNamed(context, RegistrationScreen.id);
               },
-              child: Text('Register', style: cMyButtonTextStyle),
+              child: Text('Register', style: cMyTextStyle1),
             ),
           ),
           SizedBox(height: kPadding1),
@@ -50,7 +50,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               onPressed: () {
                 Navigator.pushNamed(context, LoginScreen.id);
               },
-              child: Text('Login', style: cMyButtonTextStyle),
+              child: Text('Login', style: cMyTextStyle1),
             ),
           ),
           SizedBox(height: kPadding1 * 2),

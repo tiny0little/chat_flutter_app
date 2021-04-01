@@ -18,17 +18,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Registration'),
+        title: Text('Registration', style: cMyTextStyle1),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-            flex: 2,
+            flex: 3,
             child: Hero(
               tag: 'logo',
-              child: Icon(Icons.bolt, size: 150, color: cLogoColor),
+              child: Icon(Icons.bolt, size: 200, color: cLogoColor),
             ),
           ),
           SizedBox(height: kPadding1),
@@ -64,7 +64,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
             child: CupertinoButton.filled(
               borderRadius: BorderRadius.all(Radius.circular(kBorderRadius)),
-              child: Text('Register', style: cMyButtonTextStyle),
+              child: Text('Register', style: cMyTextStyle1),
               onPressed: () {},
             ),
           ),
