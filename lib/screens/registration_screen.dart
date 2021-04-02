@@ -68,10 +68,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               borderRadius: BorderRadius.all(Radius.circular(kBorderRadius)),
               child: Text('Register', style: cMyTextStyle1),
               onPressed: () async {
-                final newUser = await _auth.createUserWithEmailAndPassword(
-                    email: email, password: password);
-                if (newUser != null) {
-                  Navigator.pop(context);
+                try {
+                  final newUser = await _auth.createUserWithEmailAndPassword(
+                      email: email, password: password);
+                  if (newUser != null) {
+                    Navigator.pop(context);
+                  }
+                } catch (e) {
+                  print(e);
                 }
               },
             ),
