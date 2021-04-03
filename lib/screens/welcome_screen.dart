@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:firebase_core/firebase_core.dart';
 
-import 'package:chat_flutter_app/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:chat_flutter_app/resources.dart';
 import 'package:chat_flutter_app/screens/login_screen.dart';
 import 'package:chat_flutter_app/screens/registration_screen.dart';
+import 'package:chat_flutter_app/screens/chat_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const id = 'Welcome Screen';
@@ -14,12 +16,15 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   @override
   void initState() {
     super.initState();
-    Firebase.initializeApp().whenComplete(() {
-      setState(() {});
-    });
+
+    if (_auth.currentUser != null) {
+      Navigator.pushNamed(context, ChatScreen.id);
+    }
   }
 
   @override

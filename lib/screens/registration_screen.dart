@@ -5,7 +5,7 @@ import 'package:email_validator/email_validator.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:chat_flutter_app/constants.dart';
+import 'package:chat_flutter_app/resources.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static const id = 'Registration Screen';
@@ -18,10 +18,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   String email;
   String password;
   final _auth = FirebaseAuth.instance;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: formKey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Scaffold(
         appBar: AppBar(
@@ -55,8 +57,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             SizedBox(height: kPadding1),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
-              child: TextField(
-                keyboardType: TextInputType.emailAddress,
+              child: TextFormField(
+                keyboardType: TextInputType.visiblePassword,
+                obscureText: true,
                 textAlign: TextAlign.center,
                 decoration: kTextFieldDecoration.copyWith(hintText: 'password'),
                 onChanged: (value) {
@@ -68,34 +71,32 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
               child: CupertinoButton.filled(
-                borderRadius: BorderRadius.all(Radius.circular(kBorderRadius)),
-                child: Text('Register', style: cMyTextStyle1),
-                onPressed: () async {
-                  try {
-                    final newUser = await _auth.createUserWithEmailAndPassword(
-                        email: email, password: password);
-                    if (newUser != null) {
-                      Navigator.pop(context);
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(kBorderRadius)),
+                  child: Text('Register', style: cMyTextStyle1),
+                  onPressed: () async {
+                    if (formKey.currentState.validate()) {
+                      try {
+                        final newUser =
+                            await _auth.createUserWithEmailAndPassword(
+                                email: email, password: password);
+                        if (newUser != null) {
+                          Navigator.pop(context);
+                        }
+                      } catch (e) {
+                        await Alert(
+                          context: context,
+                          title: "ERROR",
+                          desc: "$e",
+                          buttons: [
+                            DialogButton(
+                                child: Text("OK", style: cMyTextStyle1),
+                                onPressed: () => Navigator.pop(context))
+                          ],
+                        ).show();
+                      }
                     }
-                  } catch (e) {
-                    print(e);
-                  }
-                  await Alert(
-                    context: context,
-                    title: "ERROR",
-                    desc: "Please validate your input",
-                    buttons: [
-                      DialogButton(
-                        child: Text(
-                          "OK",
-                          style: cMyTextStyle1,
-                        ),
-                        onPressed: () => Navigator.pop(context),
-                      )
-                    ],
-                  ).show();
-                },
-              ),
+                  }),
             ),
             SizedBox(height: kPadding1),
           ],
