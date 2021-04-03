@@ -3,10 +3,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 const cMyTextStyle1 = TextStyle(
-    fontSize: 31, fontFamily: 'AdventPro', fontWeight: FontWeight.w500);
+    color: Colors.white,
+    fontSize: 27,
+    fontFamily: 'AdventPro',
+    fontWeight: FontWeight.w500);
 const cLogoColor = Colors.amberAccent;
 
-const kPadding1 = 32.0;
+const kPadding1 = 16.0;
 const kBorderRadius = 32.0;
 const kTextFieldDecoration = InputDecoration(
   hintText: 'Enter a value',
