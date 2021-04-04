@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:chat_flutter_app/resources.dart';
@@ -16,12 +15,16 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+  String currentEmail;
+
   @override
   void initState() {
     super.initState();
 
-    if (FirebaseAuth.instance.currentUser != null) {
-      Navigator.pushNamed(context, ChatScreen.id);
+    try {
+      currentEmail = FirebaseAuth.instance.currentUser.email;
+    } catch (e) {
+      currentEmail = null;
     }
   }
 
@@ -65,7 +68,21 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               child: Text('Login', style: cMyTextStyle1),
             ),
           ),
-          SizedBox(height: kPadding1 * 2),
+          SizedBox(height: kPadding1),
+          currentEmail == null
+              ? Container()
+              : Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 8, horizontal: kPadding1),
+                  child: CupertinoButton.filled(
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(kBorderRadius)),
+                    onPressed: () {
+                      Navigator.pushNamed(context, ChatScreen.id);
+                    },
+                    child: Text('Login as $currentEmail', style: cMyTextStyle2),
+                  ),
+                ),
         ],
       ),
     );

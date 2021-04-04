@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:email_validator/email_validator.dart';
 
 import 'package:chat_flutter_app/resources.dart';
+import 'package:chat_flutter_app/screens/chat_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const id = 'Login Screen';
@@ -22,6 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Form(
       key: formKey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Scaffold(
         appBar: AppBar(title: Text('Login', style: cMyTextStyle1)),
         body: Column(
@@ -36,38 +38,33 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             SizedBox(height: kPadding1),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 8, horizontal: kPadding1),
-                child: TextFormField(
-                  keyboardType: TextInputType.emailAddress,
-                  textAlign: TextAlign.center,
-                  decoration: kTextFieldDecoration.copyWith(hintText: 'e-mail'),
-                  validator: (value) => EmailValidator.validate(value)
-                      ? null
-                      : "Please enter a valid email",
-                  onChanged: (value) {
-                    email = value;
-                  },
-                ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  vertical: 8, horizontal: kPadding1),
+              child: TextFormField(
+                keyboardType: TextInputType.emailAddress,
+                textAlign: TextAlign.center,
+                decoration: kTextFieldDecoration.copyWith(hintText: 'e-mail'),
+                validator: (value) => EmailValidator.validate(value)
+                    ? null
+                    : "Please enter a valid email",
+                onChanged: (value) {
+                  email = value;
+                },
               ),
             ),
             SizedBox(height: kPadding1),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 8, horizontal: kPadding1),
-                child: TextField(
-                  keyboardType: TextInputType.visiblePassword,
-                  obscureText: true,
-                  textAlign: TextAlign.center,
-                  decoration:
-                      kTextFieldDecoration.copyWith(hintText: 'password'),
-                  onChanged: (value) {
-                    password = value;
-                  },
-                ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  vertical: 8, horizontal: kPadding1),
+              child: TextField(
+                keyboardType: TextInputType.visiblePassword,
+                obscureText: true,
+                textAlign: TextAlign.center,
+                decoration: kTextFieldDecoration.copyWith(hintText: 'password'),
+                onChanged: (value) {
+                  password = value;
+                },
               ),
             ),
             SizedBox(height: kPadding1),
@@ -84,10 +81,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           .signInWithEmailAndPassword(
                               email: email, password: password);
                       if (newUser != null) {
-                        Navigator.pop(context);
+                        Navigator.pushNamed(context, ChatScreen.id);
                       }
                     } catch (e) {
-                      await myAlert(context: context, message: e);
+                      await myAlert(context: context, message: e.toString());
                     }
                   }
                 },

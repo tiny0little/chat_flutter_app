@@ -1,3 +1,4 @@
+import 'package:chat_flutter_app/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -15,22 +16,23 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chat', style: cMyTextStyle1),
+        title:
+            Text(FirebaseAuth.instance.currentUser.email, style: cMyTextStyle1),
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
             onPressed: () async {
               try {
                 await FirebaseAuth.instance.signOut();
-                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context, WelcomeScreen.id);
               } catch (e) {
-                await myAlert(context: context, message: e);
+                await myAlert(context: context, message: e.toString());
               }
             },
           ),
         ],
       ),
-      body: Text(FirebaseAuth.instance.currentUser.toString()),
+      body: Text(FirebaseAuth.instance.currentUser.email),
     );
   }
 }

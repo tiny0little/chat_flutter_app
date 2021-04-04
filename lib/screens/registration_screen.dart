@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:email_validator/email_validator.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:chat_flutter_app/resources.dart';
+import 'package:chat_flutter_app/screens/chat_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static const id = 'Registration Screen';
@@ -84,19 +83,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             .createUserWithEmailAndPassword(
                                 email: email, password: password);
                         if (newUser != null) {
-                          Navigator.pop(context);
+                          Navigator.pushNamed(context, ChatScreen.id);
                         }
                       } catch (e) {
-                        await Alert(
-                          context: context,
-                          title: "ERROR",
-                          desc: "$e",
-                          buttons: [
-                            DialogButton(
-                                child: Text("OK", style: cMyTextStyle1),
-                                onPressed: () => Navigator.pop(context))
-                          ],
-                        ).show();
+                        await myAlert(context: context, message: e.toString());
                       }
                     }
                   }),

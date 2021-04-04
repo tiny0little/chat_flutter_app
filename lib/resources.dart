@@ -8,6 +8,11 @@ const cMyTextStyle1 = TextStyle(
     fontSize: 27,
     fontFamily: 'AdventPro',
     fontWeight: FontWeight.w500);
+const cMyTextStyle2 = TextStyle(
+    color: Colors.white,
+    fontSize: 19,
+    fontFamily: 'AdventPro',
+    fontWeight: FontWeight.w600);
 const cLogoColor = Colors.amberAccent;
 
 const kPadding1 = 16.0;
