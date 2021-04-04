@@ -16,7 +16,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   String email;
   String password;
-  final _auth = FirebaseAuth.instance;
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -39,8 +39,8 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(height: kPadding1),
             Expanded(
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
+                padding: const EdgeInsets.symmetric(
+                    vertical: 8, horizontal: kPadding1),
                 child: TextFormField(
                   keyboardType: TextInputType.emailAddress,
                   textAlign: TextAlign.center,
@@ -57,10 +57,11 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(height: kPadding1),
             Expanded(
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
+                padding: const EdgeInsets.symmetric(
+                    vertical: 8, horizontal: kPadding1),
                 child: TextField(
-                  keyboardType: TextInputType.emailAddress,
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: true,
                   textAlign: TextAlign.center,
                   decoration:
                       kTextFieldDecoration.copyWith(hintText: 'password'),
@@ -72,29 +73,22 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: kPadding1),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
+              padding: const EdgeInsets.symmetric(
+                  vertical: 8, horizontal: kPadding1),
               child: CupertinoButton.filled(
                 borderRadius: BorderRadius.all(Radius.circular(kBorderRadius)),
                 child: Text('Login', style: cMyTextStyle1),
                 onPressed: () async {
                   if (formKey.currentState.validate()) {
                     try {
-                      final newUser = await _auth.signInWithEmailAndPassword(
-                          email: email, password: password);
+                      final newUser = await FirebaseAuth.instance
+                          .signInWithEmailAndPassword(
+                              email: email, password: password);
                       if (newUser != null) {
                         Navigator.pop(context);
                       }
                     } catch (e) {
-                      await Alert(
-                        context: context,
-                        title: "ERROR",
-                        desc: "$e",
-                        buttons: [
-                          DialogButton(
-                              child: Text("OK", style: cMyTextStyle1),
-                              onPressed: () => Navigator.pop(context))
-                        ],
-                      ).show();
+                      await myAlert(context: context, message: e);
                     }
                   }
                 },

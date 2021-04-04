@@ -17,7 +17,7 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   String email;
   String password;
-  final _auth = FirebaseAuth.instance;
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -41,7 +41,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
             SizedBox(height: kPadding1),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
+              padding: const EdgeInsets.symmetric(
+                  vertical: 8, horizontal: kPadding1),
               child: TextFormField(
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.center,
@@ -56,7 +57,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
             SizedBox(height: kPadding1),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
+              padding: const EdgeInsets.symmetric(
+                  vertical: 8, horizontal: kPadding1),
               child: TextFormField(
                 keyboardType: TextInputType.visiblePassword,
                 obscureText: true,
@@ -69,7 +71,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
             SizedBox(height: kPadding1),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
+              padding: const EdgeInsets.symmetric(
+                  vertical: 8, horizontal: kPadding1),
               child: CupertinoButton.filled(
                   borderRadius:
                       BorderRadius.all(Radius.circular(kBorderRadius)),
@@ -77,8 +80,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   onPressed: () async {
                     if (formKey.currentState.validate()) {
                       try {
-                        final newUser =
-                            await _auth.createUserWithEmailAndPassword(
+                        final newUser = await FirebaseAuth.instance
+                            .createUserWithEmailAndPassword(
                                 email: email, password: password);
                         if (newUser != null) {
                           Navigator.pop(context);

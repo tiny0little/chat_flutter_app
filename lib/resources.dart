@@ -1,6 +1,7 @@
-import 'dart:ui';
+// import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 const cMyTextStyle1 = TextStyle(
     color: Colors.white,
@@ -23,3 +24,17 @@ const kTextFieldDecoration = InputDecoration(
       borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
       borderRadius: BorderRadius.all(Radius.circular(kBorderRadius))),
 );
+
+Future<void> myAlert(
+    {@required BuildContext context, @required String message}) async {
+  await Alert(
+    context: context,
+    title: "ERROR",
+    desc: message,
+    buttons: [
+      DialogButton(
+          child: Text("OK", style: cMyTextStyle1),
+          onPressed: () => Navigator.pop(context))
+    ],
+  ).show();
+}

@@ -16,13 +16,11 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
   @override
   void initState() {
     super.initState();
 
-    if (_auth.currentUser != null) {
+    if (FirebaseAuth.instance.currentUser != null) {
       Navigator.pushNamed(context, ChatScreen.id);
     }
   }
