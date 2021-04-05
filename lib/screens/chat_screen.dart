@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:chat_flutter_app/resources.dart';
 import 'package:chat_flutter_app/screens/welcome_screen.dart';
@@ -34,9 +33,7 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ],
       ),
-      body: Text(FirebaseFirestore.instance
-          .collection('messages').
-
+      body: Text("messages here"),
     );
   }
 }
